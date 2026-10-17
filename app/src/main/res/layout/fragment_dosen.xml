@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etNidn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="NIDN (10 digit)"
+        android:inputType="number"
+        android:maxLength="10"
+        app:layout_constraintEnd_toStartOf="@+id/etMatkul"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etMatkul"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:hint="Jml Matkul"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etNama"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Nama Lengkap"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/btnSimpan"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etNidn" />
+
+    <Button
+        android:id="@+id/btnSimpan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Simpan"
+        app:layout_constraintBottom_toBottomOf="@id/etNama"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/etNama" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewDosen"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSimpan"
+        tools:listitem="@layout/item_akademik" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

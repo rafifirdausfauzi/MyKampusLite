@@ -1,0 +1,81 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+' --- Abstraction & Polymorphism (Interfaces) ---
+interface EvaluasiAkademik {
+    +getStatusAkademik(): String
+}
+
+interface AkademikRepository {
+    +getAllMahasiswa(): LiveData<List<Mahasiswa>>
+    +getAllDosen(): LiveData<List<Dosen>>
+    +insertMahasiswa(mhs: Mahasiswa)
+    +insertDosen(dosen: Dosen)
+}
+
+' --- Inheritance (Hierarchy) ---
+abstract class BaseEntity {
+    -id: int
+    -createdAt: long
+    -updatedAt: long
+    +getId(): int
+    +setId(id: int)
+}
+
+abstract class Person {
+    -nama: String
+    -email: String
+    +getNama(): String
+    +setNama(nama: String)
+    +{abstract} getRole(): String
+}
+
+class Mahasiswa {
+    -nim: String
+    -jurusan: String
+    -ipk: double
+    +getNim(): String
+    +setNim(nim: String)
+    +getRole(): String
+    +getStatusAkademik(): String
+}
+
+class Dosen {
+    -nidn: String
+    -mataKuliahDiampu: int
+    +getNidn(): String
+    +setNidn(nidn: String)
+    +getRole(): String
+    +getStatusAkademik(): String
+}
+
+' --- Architecture (MVVM & Room) ---
+class AkademikViewModel {
+    -repository: AkademikRepository
+    -allMahasiswa: LiveData<List<Mahasiswa>>
+    +tambahMahasiswa(nim, nama, ipk)
+    +tambahDosen(nidn, nama, matkul)
+}
+
+class AkademikRepositoryImpl {
+    -akademikDao: AkademikDao
+}
+
+interface AkademikDao {
+    +insertMahasiswa(mhs: Mahasiswa)
+    +getAllMahasiswa(): LiveData<List<Mahasiswa>>
+}
+
+' --- Relationships ---
+BaseEntity <|-- Person : Inheritance
+Person <|-- Mahasiswa : Inheritance
+Person <|-- Dosen : Inheritance
+
+EvaluasiAkademik <|.. Mahasiswa : Polymorphism
+EvaluasiAkademik <|.. Dosen : Polymorphism
+
+AkademikRepository <|.. AkademikRepositoryImpl : Abstraction
+AkademikViewModel --> AkademikRepository : Dependency Inversion
+AkademikRepositoryImpl --> AkademikDao : Database Access
+
+@enduml
